@@ -6,5 +6,5 @@ import (
 
 func main() {
 
-	getnodes.GET_NODES()
+	getnodes.GET_NODE_NAME()
 }

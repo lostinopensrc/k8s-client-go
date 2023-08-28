@@ -12,7 +12,7 @@ import (
 	"k8s.io/client-go/util/homedir"
 )
 
-func GET_NODES() {
+func GET_NODE_NAME() {
 
 	// getting the kubeconfig
 	var kubeconfig *string
