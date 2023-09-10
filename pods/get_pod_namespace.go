@@ -2,32 +2,18 @@ package pods
 
 import (
 	"context"
-	"flag"
 	"fmt"
-	"path/filepath"
 
+	"github.com/lostinopensrc/k8s-client-go/kubeconfig"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/client-go/util/homedir"
 )
 
 func GET_POD_NAME() {
 
-	// get kubeconfig1 we cant redifine kubeconfig variable between two packages again .
-
-	var kubeconfig1 *string
-	if home := homedir.HomeDir(); home != "" {
-		kubeconfig1 = flag.String("kubeconfig1", filepath.Join(home, ".kube", "config"), "get kubeconfig1 from home dir")
-
-	} else {
-		kubeconfig1 = flag.String("kubeconfig1", "", "provide abosolute path")
-
-	}
-	flag.Parse()
-
-	// build current context from kubeconfig1
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig1)
+	// create kubeconfig object from path
+	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig.GET_KUBE_CONFIG())
 
 	if err != nil {
 		panic(err.Error())

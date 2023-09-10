@@ -2,29 +2,17 @@ package getnodes
 
 import (
 	"context"
-	"flag"
 	"fmt"
-	"path/filepath"
 
+	"github.com/lostinopensrc/k8s-client-go/kubeconfig"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/client-go/util/homedir"
 )
 
 func GET_NODE_NAME() {
-
-	// getting the kubeconfig
-	var kubeconfig *string
-	if home := homedir.HomeDir(); home != "" {
-		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "get kubeconfig from home path")
-	} else {
-		kubeconfig = flag.String("kubeconfig", "", "provide absolute path to kubeconfig")
-	}
-	flag.Parse()
-
-	// use the current context from kubeconfig
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+	// create kubeconfig object from path
+	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig.GET_KUBE_CONFIG())
 	if err != nil {
 		panic(err.Error())
 	}
